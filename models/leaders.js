@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const leaderSchema = new Schema({
 	name: {
 		type: String,
@@ -27,7 +26,9 @@ const leaderSchema = new Schema({
 	featured: {
 		type: Boolean,
 		required: true
-	}
+	},
+}, {
+	timestamps: true
 });
 
 var Leaders = mongoose.model('Leader', leaderSchema);
