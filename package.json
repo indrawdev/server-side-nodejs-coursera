@@ -10,8 +10,10 @@
   "author": "Jogesh Muppala",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "mongodb": "^3.0.10",
     "morgan": "^1.9.0"
   }
 }
