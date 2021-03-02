@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
@@ -22,12 +23,9 @@ app.use('/leaders', leaderRouter);
 
 const server = http.createServer(app);
 
-connect.then((db) => {
-
-	console.log('Connected correctly to server');
-
-});
-
 server.listen(port, hostname, () => {
 	console.log(`Server running at http://${hostname}:${port}/`);
+	connect.then((db) => {
+		console.log('Connected correctly to server');
+	});
 });
