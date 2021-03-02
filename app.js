@@ -15,6 +15,7 @@ const users = require('./routes/users');
 const dishRouter = require('./routes/dishRouter');
 const promoRouter = require('./routes/promoRouter');
 const leaderRouter = require('./routes/leaderRouter');
+const uploadRouter = require('./routes/uploadRouter');
 
 var passport = require('passport');
 var config = require('./config');
@@ -29,7 +30,7 @@ connect.then((db) => {
 
 const app = express();
 
-app.set('secPort',port+443);
+app.set('secPort', port + 443);
 app.use(morgan('dev'));
 
 // view engine setup
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/dishes', dishRouter);
 app.use('/promotions', promoRouter);
 app.use('/leaders', leaderRouter);
+app.use('/imageUpload',uploadRouter);
 
 // app.use(session({
 // 	name: 'session-id',
@@ -76,27 +78,6 @@ app.use(function (err, req, res, next) {
 });
 
 const server = http.createServer(app);
-
-/**
- * Create HTTPS server.
- */ 
- 
-var options = {
-  key: fs.readFileSync(__dirname+'/private.key'),
-  cert: fs.readFileSync(__dirname+'/certificate.pem')
-};
-
-var secureServer = https.createServer(options,app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-secureServer.listen(app.get('secPort'), () => {
-   console.log('Server listening on port ',app.get('secPort'));
-});
-secureServer.on('error', onError);
-secureServer.on('listening', onListening);
 
 server.listen(port, hostname, () => {
 	console.log(`Server running at http://${hostname}:${port}/`);
